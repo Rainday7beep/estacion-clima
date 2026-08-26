@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Clonar Repositorio
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Compilar con Buildozer
       uses: ArtemSBulgakov/buildozer-action@v1
@@ -19,7 +19,7 @@ jobs:
         command: android debug
 
     - name: Subir APK generado
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: paquete-apk
         path: bin/*.apk
