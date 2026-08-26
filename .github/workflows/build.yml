@@ -17,7 +17,6 @@ jobs:
         sudo dpkg --add-architecture i386
         sudo apt-get update
         sudo apt-get install -y \
-            build-safe \
             git \
             git-core \
             ccache \
