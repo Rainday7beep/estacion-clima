@@ -12,11 +12,24 @@ jobs:
     - name: Clonar Repositorio
       uses: actions/checkout@v4
 
-    - name: Compilar con Buildozer
-      uses: ArtemSBulgakov/buildozer-action@v1
-      id: buildozer
-      with:
-        command: android debug
+    - name: Instalar dependencias de Linux
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+            git zip unzip openjdk-17-jdk python3-pip python3-dev \
+            autoconf libtool pkg-config zlib1g-dev libncurses5-dev \
+            libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+
+    - name: Instalar Buildozer y Cython
+      run: |
+        pip3 install --upgrade pip
+        pip3 install --user Cython==0.29.36 buildozer
+
+    - name: Asegurar PATH para buildozer
+      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Compilar APK
+      run: buildozer -v android debug
 
     - name: Subir APK generado
       uses: actions/upload-artifact@v4
